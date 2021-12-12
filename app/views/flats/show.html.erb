@@ -1,2 +1,10 @@
 <h1>Flats#show</h1>
 <p>Find me in app/views/flats/show.html.erb</p>
+
+<h1><%= @flat.title %></h1>
+<ul>
+  <% @flat.rooms.each do |r| %>
+    <li><%= r.title %></li>
+  <% end %>
+</ul>
+
