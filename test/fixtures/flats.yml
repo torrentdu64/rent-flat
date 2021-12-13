@@ -1,0 +1,7 @@
+# test/fixtures/flats.yml
+flat1:
+  title: "Ponsonby flat"
+  user_id: 1
+flat2:
+  title: "grafton flat"
+  user_id: 1
