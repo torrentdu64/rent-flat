@@ -7,9 +7,9 @@ class FlatsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Flats#index"
   end
 
-  # test "link listing present" do
-  #   visit root_path
+  test "flat name present" do
+    visit flats_path
 
-  #   assert_selector "a", text: "Listing"
-  # end
+    assert_selector "a", text: "Ponsonby flat"
+  end
 end

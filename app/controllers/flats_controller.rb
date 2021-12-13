@@ -1,12 +1,12 @@
 class FlatsController < ApplicationController
-   skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_flat, only: [:show]
 
   def index
     @flats = Flat.all
   end
 
   def show
-    @flat = Flat.find(params[:id])
   end
 
   def new
@@ -23,4 +23,11 @@ class FlatsController < ApplicationController
 
   def destroy
   end
+
+  private
+
+  def set_flat
+    @flat = Flat.find(params[:id])
+  end
+
 end
