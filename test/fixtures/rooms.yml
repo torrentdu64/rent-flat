@@ -1,0 +1,10 @@
+room1:
+  id: 1
+  title: "kitchen"
+  flat_id: 1
+room2:
+  id: 2
+  title: "bath"
+  flat_id: 2
+
+
