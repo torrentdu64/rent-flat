@@ -2,6 +2,11 @@
 <p>Find me in app/views/flats/show.html.erb</p>
 
 <h1><%= @flat.title %></h1>
+<p>Amount: <%= humanized_money_with_symbol(@flat.price) %></p>
+<%= form_tag orders_path do %>
+  <%= hidden_field_tag 'flat_id', @flat.id %>
+  <%= submit_tag 'Purchase', class: 'btn btn-primary' %>
+<% end %>
 <ul>
   <% @flat.rooms.each do |r| %>
     <li><%= r.title %></li>

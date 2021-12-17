@@ -7,5 +7,6 @@ class User < ApplicationRecord
 
   has_many :rents
   has_many :flats
+  has_many :orders
 
 end

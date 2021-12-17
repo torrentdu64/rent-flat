@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_222409) do
+ActiveRecord::Schema.define(version: 2021_12_17_034749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,22 @@ ActiveRecord::Schema.define(version: 2021_12_12_222409) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "price_cents", default: 0, null: false
     t.index ["user_id"], name: "index_flats_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "state"
+    t.string "flat_sku"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
+    t.string "checkout_session_id"
+    t.bigint "user_id", null: false
+    t.bigint "flat_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flat_id"], name: "index_orders_on_flat_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -29,6 +44,10 @@ ActiveRecord::Schema.define(version: 2021_12_12_222409) do
     t.bigint "flat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "EUR", null: false
+    t.string "checkout_session_id"
+    t.string "status"
     t.index ["flat_id"], name: "index_rents_on_flat_id"
     t.index ["user_id"], name: "index_rents_on_user_id"
   end
@@ -54,6 +73,8 @@ ActiveRecord::Schema.define(version: 2021_12_12_222409) do
   end
 
   add_foreign_key "flats", "users"
+  add_foreign_key "orders", "flats"
+  add_foreign_key "orders", "users"
   add_foreign_key "rents", "flats"
   add_foreign_key "rents", "users"
   add_foreign_key "rooms", "flats"
