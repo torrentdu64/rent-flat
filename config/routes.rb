@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
+   default_url_options :host => "example.com"
 end

@@ -29,6 +29,7 @@ module RentFlat
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    Rails.application.default_url_options = { host: 'localhost', port: 3000 }
 
     # Configuration for the application, engines, and railties goes here.
     #
