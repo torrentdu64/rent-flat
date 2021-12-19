@@ -11,5 +11,11 @@
       </ul>
       <p>Estimated delivery in <strong>2 business days</strong></p>
     </div>
+    <div class="col">
+      <form action="<%= cancel_order_path(@order) %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="submit" value="Cancel">
+      </form>
+    </div>
   </div>
 </div>

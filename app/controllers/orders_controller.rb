@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     order  = Order.create!(flat: flat, flat_sku: flat.title, amount: flat.price, state: 'pending', user: current_user)
 
     checkout_session = Stripe::Checkout::Session.create(
-      success_url: order_url(order),
+      success_url: order_url(order) + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: order_url(order),
       customer: current_user.stripe_customer_id,
       mode: 'payment',
@@ -32,7 +32,24 @@ class OrdersController < ApplicationController
     redirect_to new_order_payment_path(order)
   end
 
+
+  def success_checkout
+    #build view nd logic
+  end
+
+  def faile_checkout
+    #build view nd logic
+  end
+
   def show
     @order = current_user.orders.find(params[:id])
+  end
+
+  def cancel
+    @order = current_user.orders.find(params[:id])
+    refund = Stripe::Refund.create({
+      payment_intent: @order.stripe_payment_intent_id
+    })
+    @orde.update(stripe_refund_id: refund.id)
   end
 end

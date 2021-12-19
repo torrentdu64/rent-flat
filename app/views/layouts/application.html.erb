@@ -15,7 +15,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-
+    <%= @cart.collect { |item| item.to_builder.attributes! } %>
     <%= yield %>
   </body>
 </html>
