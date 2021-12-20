@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable , omniauth_providers: [:stripe_connect]
 
   after_commit :maybe_create_or_update_stripe_customer_id, on: [:create, :update]
 
@@ -19,6 +19,10 @@ class User < ApplicationRecord
         }
       )
       self.update(stripe_customer_id: customer.id)
+  end
+
+  def can_receive_payment?
+    uid? && provider? && access_code? && publishable_key?
   end
 
 end

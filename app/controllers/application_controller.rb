@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_cart
-    @cart = Flat.find(session[:cart])
+    #@cart = Flat.find(session[:cart]) || ""
   end
 
 end

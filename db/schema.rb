@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_105309) do
+ActiveRecord::Schema.define(version: 2021_12_20_020335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.text "request_body"
+    t.integer "status", default: 0
+    t.text "error_message"
+    t.string "source"
+    t.string "event_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "flats", force: :cascade do |t|
     t.string "title"
@@ -23,6 +33,8 @@ ActiveRecord::Schema.define(version: 2021_12_18_105309) do
     t.integer "price_cents", default: 0, null: false
     t.string "stripe_product_id"
     t.string "stripe_price_id"
+    t.string "stripe_plan_id"
+    t.string "status", default: "pending"
     t.index ["user_id"], name: "index_flats_on_user_id"
   end
 
@@ -40,6 +52,21 @@ ActiveRecord::Schema.define(version: 2021_12_18_105309) do
     t.string "stripe_refund_id"
     t.index ["flat_id"], name: "index_orders_on_flat_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.string "stripe_price_id"
+    t.string "currency"
+    t.boolean "active"
+    t.string "metadata"
+    t.string "stripe_product_id"
+    t.string "nickname"
+    t.json "recurring"
+    t.integer "price_cents", default: 0, null: false
+    t.bigint "flat_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flat_id"], name: "index_prices_on_flat_id"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -75,6 +102,15 @@ ActiveRecord::Schema.define(version: 2021_12_18_105309) do
     t.string "stripe_customer_id"
     t.boolean "admin", default: false, null: false
     t.string "stripe_payment_intent_id"
+    t.string "uid"
+    t.string "provider"
+    t.string "access_code"
+    t.string "publishable_key"
+    t.boolean "subscribed", default: false
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.string "card_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -82,6 +118,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_105309) do
   add_foreign_key "flats", "users"
   add_foreign_key "orders", "flats"
   add_foreign_key "orders", "users"
+  add_foreign_key "prices", "flats"
   add_foreign_key "rents", "flats"
   add_foreign_key "rents", "users"
   add_foreign_key "rooms", "flats"

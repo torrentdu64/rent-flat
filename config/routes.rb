@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get "/dashboard" => "flats#dashboards", as: :dashboards
+  resources :flats do
+    member do
+      post "/rent" => "orders#rent", :as => :create_rent
+      post "/plan" => "flats#create_plan", :as => :create_plan
+    end
+  end
 
-  resources :flats
+
   resources :orders, only: [:show, :create] do
     resources :payments, only: :new
     member do
@@ -16,7 +23,7 @@ Rails.application.routes.draw do
   delete "flats/remove_from_cart/:id", to: "flats#remove_from_cart", as: "remove_from_cart"
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
-   default_url_options :host => "example.com"
+  default_url_options :host => "example.com"
 
    # Sidekiq Web UI, only for admins.
   require "sidekiq/web"

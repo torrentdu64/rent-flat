@@ -40,6 +40,10 @@ gem 'stripe_event'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 
+
+gem 'omniauth', '~> 1.9'
+gem 'omniauth-stripe-connect', '~> 2.9'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

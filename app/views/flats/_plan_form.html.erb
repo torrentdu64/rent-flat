@@ -1,0 +1,12 @@
+
+
+create_plan_flat
+
+
+<% form_with model: current_user, local: true, url: create_plan_flat_path(), method: :post, html: { id: "payment-form", class: "stripe-form" }, data: { stripe_key: @flat.user.publishable_key }  do |form| %>
+
+  <input type="hidden" name="plan" value="<%= params[:plan] %>">
+  <input type="hidden" name="project" value="<%= params[:project] %>">
+
+  <button>Back <%= number_to_currency(params[:amount]) %> /mo toward <em><%= @flat.title %></em></button>
+<% end %>
