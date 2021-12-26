@@ -1,0 +1,7 @@
+<%= simple_form_for [@flat ,@price] do |p| %>
+    <%= p.input :price %>
+    <%= p.input :currency %>
+    <%= p.input :nickname %>
+    <%= p.select :recurring , Price::FREQUENCY_PAYMENT %>
+    <%= p.submit "Submit Price", class: "btn btn-primary" %>
+<% end %>

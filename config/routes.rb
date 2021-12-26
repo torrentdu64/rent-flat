@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
 
+
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get "/dashboard" => "flats#dashboards", as: :dashboards
   resources :flats do
+    resources :prices
     member do
+      # get "/prices", to: "prices#new", :as => :pricing_new
+      # post "/prices", to: "prices#create", :as => :pricing_create
+      # get "/prices/:id/edit", to: "prices#edit", :as => :pricing_edit
+      # patch "/prices/:id", to: "prices#update", :as => :pricing_update
+      # delete "/prices/:id", to: "prices#destroy", :as => :pricing_destroy
       post "/rent" => "orders#rent", :as => :create_rent
       post "/plan" => "flats#create_plan", :as => :create_plan
     end

@@ -11,22 +11,26 @@ class FlatsController < ApplicationController
   end
 
   def new
+    # if no wallet not connected disable form
     @flat = Flat.new
-    @price = Price.new
+    @flat.pricing.build
+    #@price = Price.new
   end
 
   def dashboards
+    # @flats display beside flat of user
     @flats = current_user.flats.all
-
+    # form for create method
     @flat = Flat.new
-    @price = Price.new
+    @flat.pricing.build
   end
 
   def create
     #@price = Price.new(price_params)
     @flat = current_user.flats.build(flat_params)
+    #byebug
     #@price.save &&
-    if  @flat.save
+    if @flat.save
       flash[:notice] = "Flat register"
       redirect_to dashboards_path(@flat)
     else
@@ -42,12 +46,25 @@ class FlatsController < ApplicationController
   end
 
   def edit
+    @flat = current_user.flats.left_joins(:pricing).find(params[:id])
+    @flat.pricing.build
   end
 
   def update
+    @flat = current_user.flats.find(params[:id])
+    #byebug
+    #@price.save &&
+    if @flat.update(flat_params)
+      flash[:notice] = "Flat updated"
+      redirect_to dashboards_path(@flat)
+    else
+      flash[:notice] = "Flat fail"
+      render :new
+    end
   end
 
   def destroy
+    byebug
   end
 
    def add_to_cart
@@ -69,11 +86,11 @@ class FlatsController < ApplicationController
   end
 
   def flat_params
-    params.require(:flat).permit(:title, :price )
+    params.require(:flat).permit(:title, :price, pricing_attributes: [ :price, :currency, :nickname, :recurring ] )
   end
 
   def price_params
-    params.require(:flat).permit(:currency, :nickname, :recurring)
+    params.require(:Price).permit(:currency, :nickname, :recurring)
   end
 
 end

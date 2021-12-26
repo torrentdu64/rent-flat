@@ -1,14 +1,22 @@
-<h1>DashBoards</h1>
- <%= link_to "create flat", new_flat_path, class: "btn btn-primary" if current_user && current_user.can_receive_payment? %>
+<h1 class="text-center">DashBoards</h1>
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <%= render "flats/form" %>
+      <% render "flats/form" %>
+      <%= link_to "create flat", new_flat_path, class: "btn btn-success" if current_user && current_user.can_receive_payment? %>
     </div>
     <div class="col-sm-6">
      <% @flats.each do |f| %>
-      <p><%= f.title%>, <%= f.price%> nzd/week <span><%= f.status %></span></p>
+       <h1><%= f.title %> <%= link_to "Manage my profile", flat_path(f), class: "btn btn-primary"   %></h1>
      <% end%>
     </div>
   </div>
 </div>
+
+
+<!--      <p><%#= f.title%></p><%#= link_to "edit", edit_flat_path(f), class: "btn btn-success"  %>-->
+      <!--        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto consequatur corporis, cumque debitis dolorum eaque, eveniet iste laborum maiores odio quidem, quis repudiandae suscipit tenetur vero vitae voluptatem!</p>-->
+      <%# f.pricing.map do |p| %>
+      <!--          <p>,  <%#= p.price %>/<%#= p.recurring %> <span> <%#= f.status %> </span> </p>-->
+      <%#= button_to "delete", pricing_destroy_flat_path( f.id, p.id), method: :delete %>
+<%# end %>

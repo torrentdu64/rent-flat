@@ -1,3 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <% @flats.each do |f| %>
+        <%= link_to flat_path(f.id) do %>
+          <div class="card-trip">
+            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
+            <div class="card-trip-infos">
+              <div>
+                <h2><%= f.title %></h2>
+                <p>Short description here!</p>
+              </div>
+              <h2 class="card-trip-pricing">£99.99</h2>
+              <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+            </div>
+          </div>
+        <% end  %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+=========================
 <h1>Flats#index</h1>
 <p>Find me in app/views/flats/index.html.erb</p>
 <% @flats.each do |f| %>

@@ -1,7 +1,31 @@
-<h1>Flats#show</h1>
-<p>Find me in app/views/flats/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+        <%= @flat.title %>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <%= link_to "edit flat", edit_flat_path(@flat), class: "btn btn-success" %>
+          <%= link_to "add Price", new_flat_price_path(@flat) , class: "btn btn-success" %>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus fugit illum ipsum laboriosam neque quasi, rerum? Deserunt harum inventore quia quidem vero. Cumque hic, illum magnam odio qui sunt totam!</p>
+        </div>
+        <div class="col-sm-4">
+          <h1>Status <small><span class="badge badge-primary"><%= @flat.status %></span></small></h1>
+          <% @flat.pricing.map do |p| %>
+            <h2><%= p.price %>/<%= p.recurring %> <%= link_to "edit price", edit_flat_price_path(@flat, p), class: "btn btn-success" %></h2>
+          <% end %>
+        </div>
+      </div>
+      <%#= button_to "delete", pricing_destroy_flat_path( f.id, p.id), method: :delete %>
+      <%# end %>
+    </div>
+  </div>
+</div>
 
-<h1><%= @flat.title %></h1>
+
+
+
 <p>Amount: <%= humanized_money_with_symbol(@flat.price) %></p>
 
 

@@ -1,0 +1,8 @@
+<template data-multi-pricing-target="pricingTemplate">
+  <%= f.fields_for :pricing do |p| %>
+    <%= p.input :price %>
+    <%= p.input :currency %>
+    <%= p.input :nickname %>
+    <%= p.select :recurring , Price::FREQUENCY_PAYMENT %>
+  <% end %>
+</template>
