@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
 
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+
+  devise_for :users, controllers: { :registrations => 'registrations' ,omniauth_callbacks: "omniauth_callbacks" }
+  resources :merchant_settings, except: [:show, :index, :new , :create, :update, :edit, :destroy  ] do
+      collection do
+        post "/connect" => "merchant_settings#connect", :as => :connect_stripe
+      end
+  end
+  resources :users, only: [:show, :edit, :update]
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get "/dashboard" => "flats#dashboards", as: :dashboards

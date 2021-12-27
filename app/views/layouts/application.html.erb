@@ -15,7 +15,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <%= stripe_button_connect_wallet if current_user && !current_user.can_receive_payment? %>
+
 
     <%= @cart.collect { |item| item.to_builder.attributes! } if !@cart.nil? %>
     <%= link_to "Dashboards", dashboards_path , class: "btn btn-danger" %>

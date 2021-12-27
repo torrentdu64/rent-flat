@@ -18,6 +18,8 @@ class User < ApplicationRecord
           user_id: id
         }
       )
+
+      byebug
       self.update(stripe_customer_id: customer.id)
   end
 

@@ -2,21 +2,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <% render "flats/form" %>
-      <%= link_to "create flat", new_flat_path, class: "btn btn-success" if current_user && current_user.can_receive_payment? %>
+      <%= link_to "Advertise a new flat", new_flat_path, class: "btn btn-success"  %>
+      <%= link_to "Profile settings", edit_user_path(current_user), class: "btn btn-success"  %>
+      <%= link_to "devise registration", edit_user_registration_path()  %>
     </div>
     <div class="col-sm-6">
      <% @flats.each do |f| %>
-       <h1><%= f.title %> <%= link_to "Manage my profile", flat_path(f), class: "btn btn-primary"   %></h1>
+       <h1><%= f.title %> <%= link_to "Manage my property", flat_path(f), class: "btn btn-primary"   %></h1>
      <% end%>
     </div>
   </div>
 </div>
 
 
-<!--      <p><%#= f.title%></p><%#= link_to "edit", edit_flat_path(f), class: "btn btn-success"  %>-->
-      <!--        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto consequatur corporis, cumque debitis dolorum eaque, eveniet iste laborum maiores odio quidem, quis repudiandae suscipit tenetur vero vitae voluptatem!</p>-->
-      <%# f.pricing.map do |p| %>
-      <!--          <p>,  <%#= p.price %>/<%#= p.recurring %> <span> <%#= f.status %> </span> </p>-->
-      <%#= button_to "delete", pricing_destroy_flat_path( f.id, p.id), method: :delete %>
-<%# end %>

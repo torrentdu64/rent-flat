@@ -1,0 +1,26 @@
+<h1>Users#edit</h1>
+<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+
+  </div>
+
+  <div class="row">
+    <div class="offset-3 col-sm-6">
+      <%= simple_form_for @user do |f| %>
+        <%= f.input :email %>
+        <%= f.submit "Save settings", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitches"
+          <%= 'checked="checked"' if @user.can_receive_payment? %>
+        >
+        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+      </div>
+      <%= stripe_button_connect_wallet  %>
+    </div>
+  </div>
+</div>
+
