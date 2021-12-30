@@ -1,0 +1,44 @@
+<%= simple_form_for @stripe_account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
+  <%= f.input :identity_document, as: :file %>
+  <%= f.submit :submit %>
+<% end %>
+
+<br>
+<br>
+
+<button id="verify-button">Verify</button>
+
+<script type="text/javascript">
+    // Set your publishable key: remember to change this to your live publishable key in production
+    // See your keys here: https://dashboard.stripe.com/apikeys
+    var stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+    const csrfToken = document.querySelector("[name='csrf-token']")
+    console.log('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>')
+    var verifyButton = document.getElementById('verify-button');
+
+    verifyButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+       const {client_secret} = await fetch('/stripe_documents', {
+           credentials: 'same-origin',
+           method: 'POST' ,
+           headers: {
+               "X-CSRF-Token": csrfToken,
+               'X-Requested-With': 'XMLHttpRequest',
+               'Content-Type': 'application/json',
+               'Accept': 'application/json'
+           },
+
+       }).then( r => r.json() );
+
+        console.log("step 2" , client_secret)
+       const {error} = await stripe.verifyIdentity(client_secret)
+
+        if( error ){
+            alert(error.message)
+        }else{
+            console.log("check stripe profile")
+        }
+
+    });
+
+</script>

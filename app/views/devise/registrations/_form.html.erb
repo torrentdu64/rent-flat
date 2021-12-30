@@ -20,7 +20,11 @@
 
       <%= link_to "connect here", connect_stripe_merchant_settings_path , class: "btn btn-danger", method: :post  %>
     </div>
-
+    <div class="row">
+      <%= link_to "stripe details ", new_stripe_account_path, class: "btn btn-primary" %>
+    </div>
+    <%= link_to "upload id passport", upload_id_stripe_documents_path , class: "btn btn-default" %>
+    <%= link_to "upload id passport", upload_address_stripe_documents_path , class: "btn btn-default" %>
 
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",

@@ -25,6 +25,19 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :stripe_accounts
+  #get 'stripe_accounts/full', to: 'stripe_accounts#full'
+  get 'terms', to: 'stripe_accounts#terms'
+
+  resources :bank_accounts
+
+  resources :stripe_documents do
+    collection do
+      get "/identity_upload"  => "stripe_documents#identity_document", :as => :upload_id
+      get "/address_upload"  => "stripe_documents#address_document", :as => :upload_address
+    end
+  end
+
 
   resources :orders, only: [:show, :create] do
     resources :payments, only: :new

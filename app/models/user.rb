@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :rents
   has_many :flats
   has_many :orders
+  has_many :stripe_accounts
 
   def maybe_create_or_update_stripe_customer_id
       return if !stripe_customer_id.blank?
@@ -19,7 +20,7 @@ class User < ApplicationRecord
         }
       )
 
-      byebug
+
       self.update(stripe_customer_id: customer.id)
   end
 
