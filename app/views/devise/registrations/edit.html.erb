@@ -2,9 +2,37 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-6">
-      <%= render  partial: "devise/registrations/form", locals: {resource: resource} %>
+    <div  class="col-xs-6">
+      <%= link_to "Back", :back %>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Personal account credentials</h2>
+      <%= render  partial: "devise/registrations/form", locals: {resource: resource } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Create Host Profile</h2>
+      <%= render 'stripe_accounts/account_form'  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Enter you Bank account recipient</h2>
+      <%= render 'bank_accounts/bank_account_form' %>
+      <div class="hint">
+        <p>
+          <i class="fa fa-info-circle"></i> Hint: use <strong>110000000</strong> and <strong>000123456789</strong> to simulate a successful transfer.
+        </p>
+        <p class="text-center">
+          <a href="https://stripe.com/docs/testing#managed-accounts" target="_blank">Other test bank account numbers</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
 </div>
 

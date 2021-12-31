@@ -5,8 +5,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @account = current_user.stripe_accounts.first || StripeAccount.new
     super
     #Custom code to override this action
+
   end
 
   def update

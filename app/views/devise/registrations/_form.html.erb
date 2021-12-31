@@ -8,23 +8,24 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <div class="row">
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="customSwitches"
-               <%= 'checked="checked"' if @user.can_receive_payment? %>
-        >
-        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
-      </div>
-      <%= stripe_button_connect_wallet  %>
+<!--    <div class="row">-->
+<!--      <div class="custom-control custom-switch">-->
+<!--        <input type="checkbox" class="custom-control-input" id="customSwitches"-->
+               <%#= 'checked="checked"' if @user.can_receive_payment? %>
+<!--        >-->
+<!--        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>-->
+<!--      </div>-->
+      <%#= stripe_button_connect_wallet  %>
 
 
-      <%= link_to "connect here", connect_stripe_merchant_settings_path , class: "btn btn-danger", method: :post  %>
-    </div>
-    <div class="row">
-      <%= link_to "stripe details ", new_stripe_account_path, class: "btn btn-primary" %>
-    </div>
-    <%= link_to "upload id passport", upload_id_stripe_documents_path , class: "btn btn-default" %>
-    <%= link_to "upload id passport", upload_address_stripe_documents_path , class: "btn btn-default" %>
+      <%# link_to "connect here", connect_stripe_merchant_settings_path , class: "btn btn-danger", method: :post  %>
+<!--    </div>-->
+<!--    <div class="row">-->
+      <%#= link_to "stripe details", new_stripe_account_path, class: "btn btn-primary" %>
+      <%#= render 'stripe_accounts/account_form' %>
+<!--    </div>-->
+    <%#= link_to "upload id passport", upload_id_stripe_documents_path , class: "btn btn-default" %>
+    <%#= link_to "upload id passport", upload_address_stripe_documents_path , class: "btn btn-default" %>
 
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
@@ -40,14 +41,12 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Update" , class: "btn btn-success" %>
+    <%= f.button :submit, "Update" , class: "btn btn-success btn-lg btn-block btn-custom" %>
   </div>
 <% end %>
-
-
 
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+

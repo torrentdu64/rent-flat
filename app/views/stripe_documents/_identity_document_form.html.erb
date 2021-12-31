@@ -1,8 +1,12 @@
-<%= simple_form_for @stripe_account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
+<%= simple_form_for @account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
   <%= f.input :identity_document, as: :file %>
   <%= f.submit :submit %>
 <% end %>
-
+<% if @account.identity_document.attached? %>
+  <%= image_tag @account.identity_document , height: 300, width: 400 %>
+<% else %>
+  <p>No document</p>
+<% end %>
 <br>
 <br>
 

@@ -1,4 +1,0 @@
-<%= simple_form_for @stripe_account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
-  <%= f.input :verify_home_address, as: :file %>
-  <%= f.submit :submit %>
-<% end %>

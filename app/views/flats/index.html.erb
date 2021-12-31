@@ -10,7 +10,7 @@
                 <h2><%= f.title %></h2>
                 <p>Short description here!</p>
               </div>
-              <h2 class="card-trip-pricing">£99.99</h2>
+              <h2 class="card-trip-pricing"><%= f.pricing.first.price %></h2>
               <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
             </div>
           </div>
@@ -22,14 +22,14 @@
 
 
 
-=========================
-<h1>Flats#index</h1>
-<p>Find me in app/views/flats/index.html.erb</p>
-<% @flats.each do |f| %>
-  <%= link_to "#{f.title}", flat_path(f.id) %>
-  <% if @cart && @cart.include?(f) %>
-  <%= button_to "Remove from cart", remove_from_cart_path(f), method: :delete %>
-  <% else %>
-  <%= button_to "Add to cart", add_to_cart_path(f) %>
-  <% end %>
-<% end %>
+<!--=========================-->
+<!--<h1>Flats#index</h1>-->
+<!--<p>Find me in app/views/flats/index.html.erb</p>-->
+<%# @flats.each do |f| %>
+  <%#= link_to "#{f.title}", flat_path(f.id) %>
+  <%# if @cart && @cart.include?(f) %>
+  <%#= button_to "Remove from cart", remove_from_cart_path(f), method: :delete %>
+  <%# else %>
+  <%#= button_to "Add to cart", add_to_cart_path(f) %>
+  <%# end %>
+<%# end %>

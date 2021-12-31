@@ -20,6 +20,7 @@ class FlatsController < ApplicationController
   def dashboards
     # @flats display beside flat of user
     @flats = current_user.flats.all
+    @account = current_user.stripe_accounts.first || StripeAccount.new
     # form for create method
     @flat = Flat.new
     @flat.pricing.build

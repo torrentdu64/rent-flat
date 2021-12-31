@@ -19,4 +19,5 @@ class ApplicationController < ActionController::Base
     render view
   end
 
+
 end
