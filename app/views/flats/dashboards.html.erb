@@ -19,7 +19,7 @@
     <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
          <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-           <%= render  partial: "devise/registrations/form", locals: {resource: resource } %>
+           <%= render  partial: "devise/registrations/form", locals: {resource: current_user } %>
          </div>
          <div class="tab-pane fade" id="v-pills-cards" role="tabpanel" aria-labelledby="v-pills-cards-tab">
           create card page

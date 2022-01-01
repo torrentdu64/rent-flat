@@ -44,12 +44,12 @@ class StripeAccountsController < ApplicationController
               email: current_user.email,
               phone: "+642041845759",
               address: {
-                city: "Auckland",
+                city: account_params[:address_city],
                 country: "NZ",
-                line1: "4 glasgow, terrace",
+                line1: account_params[:address_line1],
                 line2: "",
-                postal_code: "1023",
-                state: "grafton"
+                postal_code: account_params[:address_postal],
+                state: account_params[:address_state]
               }
               #ssn_last_4: account_params[:ssn_last_4],
             },
