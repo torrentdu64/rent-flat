@@ -13,7 +13,7 @@ class StripeAccountsController < ApplicationController
   end
 
   def create
-    
+
     @account = StripeAccount.new(account_params)
     @account.user_id = current_user.id
 

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <%= simple_form_for  @account , url: bank_accounts_path(), html: { method: "post" }  do | f | %>
+    <%= simple_form_for  @stripe_account , url: bank_accounts_path(), html: { method: "post" }  do | f | %>
 
       <%= f.input :currency  , input_html: { :value => "NZD" } %>
       <%= f.input :routing_number , input_html: { :value => "110000000" } %>
