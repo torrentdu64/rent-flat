@@ -28,11 +28,13 @@ Rails.application.routes.draw do
   resources :stripe_accounts
   #get 'stripe_accounts/full', to: 'stripe_accounts#full'
   get 'terms', to: 'stripe_accounts#terms'
+  get "verification", to: "stripe_accounts#verification"
 
   resources :bank_accounts
 
   resources :stripe_documents do
     collection do
+      post "/stripe_documents/admin_upload_document" => "stripe_documents#admin_upload_document"
       get "/identity_upload"  => "stripe_documents#identity_document", :as => :upload_id
       get "/address_upload"  => "stripe_documents#address_document", :as => :upload_address
     end

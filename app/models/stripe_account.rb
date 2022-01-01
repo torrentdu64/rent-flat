@@ -1,5 +1,6 @@
 class StripeAccount < ApplicationRecord
   belongs_to :user
+  has_many :copmanies
   has_one_attached :identity_document
   has_one_attached :verify_home_address
   validates :first_name,

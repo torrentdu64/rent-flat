@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>List waiting approved profile</h1>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">email</th>
+          <th scope="col">status</th>
+          <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @stripe_account_pending.each_with_index do |p,i|  %>
+            <tr>
+              <th scope="row"><%= i %></th>
+              <td><%= p.user.email %></td>
+              <td><%= p.charges_enabled %></td>
+              <td><%= link_to "verify profile", stripe_account_path(p), class: "btn btn-primary" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Active profile</h1>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">email</th>
+          <th scope="col">status</th>
+          <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @stripe_account_verify.each_with_index do |p,i|   %>
+          <tr>
+            <th scope="row"><%= i %></th>
+            <td><%= p.user.email %></td>
+            <td><%= p.charges_enabled %></td>
+            <td><%= link_to "verify document", edit_stripe_account_path(p), class: "btn btn-primary" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

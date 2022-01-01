@@ -5,6 +5,13 @@ class StripeAccountsController < ApplicationController
     @account = StripeAccount.new
   end
 
+  def verification
+    @stripe_account_pending = StripeAccount.where(charges_enabled: false)
+    @stripe_account_verify = StripeAccount.where(charges_enabled: true)
+    #
+    # do for reject
+  end
+
   def create
     byebug
     @account = StripeAccount.new(account_params)
@@ -107,21 +114,24 @@ class StripeAccountsController < ApplicationController
   end
 
   def edit
+
+    # Retrieve the local account details
+    @account = StripeAccount.find(params[:id])
     # Check for a valid account ID
-    unless params[:id] && params[:id].eql?(current_user.stripe_account)
-      flash[:error] = "No Stripe account specified"
-      redirect_to dashboard_path and return
+    unless  !@account.charges_enabled
+      flash[:notice] = "No Stripe account specified"
+      redirect_to root_path and return
     end
 
     # Retrieve the Stripe account to find fields needed
-    @stripe_account = Stripe::Account.retrieve(params[:id])
+    @stripe_account = Stripe::Account.retrieve(@account.acct_id)
 
     # Retrieve the local account details
-    @account = StripeAccount.find_by(acct_id: params[:id])
+    #  @account = StripeAccount.find_by(acct_id: params[:id])
 
     if @stripe_account.requirements.currently_due.empty?
-      flash[:success] = "Your information is all up to date."
-      redirect_to dashboard_path and return
+      flash[:notice] = "Your information is all up to date."
+      redirect_to dashboards_path and return
     end
   end
 
@@ -196,6 +206,11 @@ class StripeAccountsController < ApplicationController
     rescue => e
       handle_error(e.message, 'edit')
     end
+  end
+
+
+  def show
+    @account = StripeAccount.find(params[:id])
   end
 
   private

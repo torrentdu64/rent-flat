@@ -1,0 +1,76 @@
+<h1>show admin account</h1>
+
+<% @account.inspect  %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4> first name: <%= @account.first_name %> </h4>
+      <h4> last name: <%= @account.last_name %> </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4> account type <%= @account.account_type %> </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>Date of birth</h4>
+      <h4> month <%= @account.dob_month %> </h4> <h4> day <%= @account.dob_day %> </h4> <h4> year <%= @account.dob_year %> </h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>Address</h4>
+      <h4> address_city <%= @account.address_city %> </h4>
+      <h4> address_state <%= @account.address_state %> </h4>
+      <h4> address_line1 <%= @account.address_line1 %> </h4>
+      <h4> address_postal <%= @account.address_postal %> </h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>Business info</h4>
+      <h4> tos <%= @account.tos %> </h4>
+      <h4> ssn_last_4 <%= @account.ssn_last_4 %> </h4>
+      <h4> business_name <%= @account.business_name %> </h4>
+      <h4> business_tax_id <%= @account.business_tax_id %> </h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>Stripe info</h4>
+      <h4> personal_id_number <%= @account.personal_id_number %> </h4>
+      <h4> acct_id <%= @account.acct_id %> </h4>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>document info</h4>
+      <h4> verification_document <%= @account.verification_document %> </h4>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 offset-3">
+      <h4>Bank info</h4>
+      <h4> country <%= @account.country %> </h4>
+      <h4> currency <%= @account.currency %> </h4>
+      <h4> routing_number <%= @account.routing_number %> </h4>
+      <h4> account_number <%= @account.account_number %> </h4>
+    </div>
+  </div>
+
+</div>
+
+
+
+

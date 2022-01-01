@@ -4,11 +4,13 @@
 <% end %>
 <% if @account.identity_document.attached? %>
   <%= image_tag @account.identity_document , height: 300, width: 400 %>
+  <%= link_to "download", rails_blob_path(@account.identity_document, disposition: "attachment") %>
 <% else %>
   <p>No document</p>
 <% end %>
 <br>
 <br>
+
 
 <button id="verify-button">Verify</button>
 
@@ -17,12 +19,16 @@
     // See your keys here: https://dashboard.stripe.com/apikeys
     var stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
     const csrfToken = document.querySelector("[name='csrf-token']")
-    console.log('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>')
+
     var verifyButton = document.getElementById('verify-button');
+
+    var data = {
+        user_id: <%=  @account.user.id  %>
+    }
 
     verifyButton.addEventListener('click', async (e) => {
         e.preventDefault();
-       const {client_secret} = await fetch('/stripe_documents', {
+       const {client_secret} = await fetch('/stripe_documents/stripe_documents/admin_upload_document', {
            credentials: 'same-origin',
            method: 'POST' ,
            headers: {
@@ -31,6 +37,7 @@
                'Content-Type': 'application/json',
                'Accept': 'application/json'
            },
+           body: JSON.stringify(data)
 
        }).then( r => r.json() );
 
@@ -46,3 +53,4 @@
     });
 
 </script>
+

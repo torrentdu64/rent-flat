@@ -68,6 +68,23 @@ class StripeDocumentsController < ApplicationController
 
   end
 
+  def admin_upload_document
+      content_type = "application/json"
+
+      verification_session = Stripe::Identity::VerificationSession.create(
+    {
+          type: 'document',
+          metadata: {
+            user_id: params[:user_id],
+          },
+        }
+      )
+
+
+      # Return only the client secret to the frontend
+      render json: { client_secret: verification_session.client_secret }.to_h
+  end
+
   private
 
   def documents_params

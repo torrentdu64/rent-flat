@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_230358) do
+ActiveRecord::Schema.define(version: 2021_12_31_023947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,22 @@ ActiveRecord::Schema.define(version: 2021_12_28_230358) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "copmanies", force: :cascade do |t|
+    t.string "name"
+    t.string "address_line1"
+    t.string "address_postal_code"
+    t.string "address_city"
+    t.string "phone"
+    t.string "tax_id"
+    t.boolean "executives_provided"
+    t.boolean "owners_provided"
+    t.string "mcc"
+    t.bigint "stripe_account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stripe_account_id"], name: "index_copmanies_on_stripe_account_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -144,6 +160,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_230358) do
     t.string "currency"
     t.string "routing_number"
     t.string "account_number"
+    t.boolean "charges_enabled", default: false
     t.index ["user_id"], name: "index_stripe_accounts_on_user_id"
   end
 
@@ -173,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_230358) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "copmanies", "stripe_accounts"
   add_foreign_key "flats", "users"
   add_foreign_key "orders", "flats"
   add_foreign_key "orders", "users"
