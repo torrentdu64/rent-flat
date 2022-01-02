@@ -2,7 +2,7 @@ class BankAccountsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    
+
     # Redirect if no stripe account exists yet
     unless current_user.uid
       redirect_to new_stripe_account_path and return
