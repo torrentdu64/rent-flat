@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-4">
       <h1 class="text-center">DashBoards</h1>
-      <h3>Profile Status:  <small><span class="badge badge-primary"><%= @account.charges_enabled %></span></small> </h3>
+      <h3>Profile Status:  <small><span class="badge badge-primary"><%= @account.charges_enabled %></span></small> <%= @stripe_account.charges_enabled if  @stripe_account  %></h3>
     </div>
   </div>
   <div class="row">
