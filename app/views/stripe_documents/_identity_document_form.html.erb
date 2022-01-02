@@ -15,45 +15,45 @@
 
 
 
-<!--<button id="verify-button">Verify</button>-->
+<button id="verify-button">Verify</button>
 
-<!--<script type="text/javascript">-->
-<!--    // Set your publishable key: remember to change this to your live publishable key in production-->
-<!--    // See your keys here: https://dashboard.stripe.com/apikeys-->
-<!--    var stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');-->
-<!--    const csrfToken = document.querySelector("[name='csrf-token']")-->
+<script type="text/javascript">
+    // Set your publishable key: remember to change this to your live publishable key in production
+    // See your keys here: https://dashboard.stripe.com/apikeys
+    var stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+    const csrfToken = document.querySelector("[name='csrf-token']")
 
-<!--    var verifyButton = document.getElementById('verify-button');-->
+    var verifyButton = document.getElementById('verify-button');
 
-<!--    var data = {-->
-<!--        user_id: <%#= @account.user.id  %>-->
-<!--    }-->
+    var data = {
+        user_id: <%= @account.user.id  %>
+    }
 
-<!--    verifyButton.addEventListener('click', async (e) => {-->
-<!--        e.preventDefault();-->
-<!--       const {client_secret} = await fetch('/stripe_documents/stripe_documents/admin_upload_document', {-->
-<!--           credentials: 'same-origin',-->
-<!--           method: 'POST' ,-->
-<!--           headers: {-->
-<!--               "X-CSRF-Token": csrfToken,-->
-<!--               'X-Requested-With': 'XMLHttpRequest',-->
-<!--               'Content-Type': 'application/json',-->
-<!--               'Accept': 'application/json'-->
-<!--           },-->
-<!--           body: JSON.stringify(data)-->
+    verifyButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+       const {client_secret} = await fetch('/stripe_documents/stripe_documents/admin_upload_document', {
+           credentials: 'same-origin',
+           method: 'POST' ,
+           headers: {
+               "X-CSRF-Token": csrfToken,
+               'X-Requested-With': 'XMLHttpRequest',
+               'Content-Type': 'application/json',
+               'Accept': 'application/json'
+           },
+           body: JSON.stringify(data)
 
-<!--       }).then( r => r.json() );-->
+       }).then( r => r.json() );
 
-<!--        console.log("step 2" , client_secret)-->
-<!--       const {error} = await stripe.verifyIdentity(client_secret)-->
+        console.log("step 2" , client_secret)
+       const {error} = await stripe.verifyIdentity(client_secret)
 
-<!--        if( error ){-->
-<!--            alert(error.message)-->
-<!--        }else{-->
-<!--            console.log("check stripe profile")-->
-<!--        }-->
+        if( error ){
+            alert(error.message)
+        }else{
+            console.log("check stripe profile")
+        }
 
-<!--    });-->
+    });
 
-<!--</script>-->
+</script>
 
