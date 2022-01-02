@@ -3,7 +3,7 @@ class StripeDocumentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def identity_document
-    byebug
+
     @account = StripeAccount.find(params[:id])
 
     if @account.update(documents_params)

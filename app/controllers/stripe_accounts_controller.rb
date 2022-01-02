@@ -31,7 +31,7 @@ class StripeAccountsController < ApplicationController
     # need to receive id not with current_user
     @account = StripeAccount.find_by(params[:id])
 
-    byebug
+
     @account.update(account_params)
 
     #@account.user_id = current_user.id
@@ -258,11 +258,11 @@ class StripeAccountsController < ApplicationController
   end
 
   def update
-    byebug
+
     @account =  StripeAccount.find(params[:id])
     user = @account.user
     if user.uid.blank?
-      byebug
+
       create_stripe_account(@account)
     elsif @account.update(account_params)
       redirect_to dashboards_stripe_account_path(@account, account: 'update')  and  return
