@@ -18,7 +18,7 @@
 
 
     <%= @cart.collect { |item| item.to_builder.attributes! } if !@cart.nil? %>
-    <%= link_to "Dashboards", dashboards_path , class: "btn btn-danger" %>
+    <%= link_to "Dashboards",  dashboards_stripe_account_path(current_user.stripe_accounts.first) , class: "btn btn-danger" if current_user %>
     <%= yield %>
   </body>
 </html>

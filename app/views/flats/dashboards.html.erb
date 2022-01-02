@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-4">
       <h1 class="text-center">DashBoards</h1>
-      <h3>Profile Status:  <small><span class="badge badge-primary"><%= @account.charges_enabled %></span></small> </h3>
+      <h3>Profile Status:  <small><span class="badge badge-primary"><%= @stripe_account.charges_enabled %></span></small> </h3>
     </div>
   </div>
   <div class="row">
@@ -25,7 +25,7 @@
           create card page
          </div>
          <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
-           <%= render  "stripe_accounts/account_form" , locals: {contract: @contract }  %>
+           <%= render  "stripe_accounts/account_form"   %>
          </div>
          <div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">...</div>
           <div class="tab-pane fade" id="v-pills-bank" role="tabpanel" aria-labelledby="v-pills-bank-tab">

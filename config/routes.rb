@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/dashboard" => "flats#dashboards", as: :dashboards
+
   resources :flats do
     resources :prices
     member do
@@ -25,7 +25,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stripe_accounts
+  resources :stripe_accounts do
+    member do
+      get "/dashboard" => "stripe_accounts#dashboards", as: :dashboards
+      post "/identity_upload"  => "stripe_documents#identity_document", :as => :upload_id
+      get "/address_upload"  => "stripe_documents#address_document", :as => :upload_address
+    end
+  end
+
   #get 'stripe_accounts/full', to: 'stripe_accounts#full'
   get 'terms', to: 'stripe_accounts#terms'
   get "verification", to: "stripe_accounts#verification"
@@ -35,8 +42,8 @@ Rails.application.routes.draw do
   resources :stripe_documents do
     collection do
       post "/stripe_documents/admin_upload_document" => "stripe_documents#admin_upload_document"
-      get "/identity_upload"  => "stripe_documents#identity_document", :as => :upload_id
-      get "/address_upload"  => "stripe_documents#address_document", :as => :upload_address
+      # get "/identity_upload"  => "stripe_documents#identity_document", :as => :upload_id
+      # get "/address_upload"  => "stripe_documents#address_document", :as => :upload_address
     end
   end
 

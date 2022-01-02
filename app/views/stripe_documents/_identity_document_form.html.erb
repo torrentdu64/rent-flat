@@ -1,4 +1,4 @@
-<%= simple_form_for @account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
+<%= simple_form_for @account, url: upload_id_stripe_account_path, html: { method: "post" }   do |f| %>
   <%= f.input :identity_document, as: :file %>
   <%= f.submit :submit %>
 <% end %>

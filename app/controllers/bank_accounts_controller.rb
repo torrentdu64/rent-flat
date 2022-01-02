@@ -2,6 +2,7 @@ class BankAccountsController < ApplicationController
   before_action :authenticate_user!
 
   def new
+    byebug
     # Redirect if no stripe account exists yet
     unless current_user.uid
       redirect_to new_stripe_account_path and return
@@ -23,12 +24,23 @@ class BankAccountsController < ApplicationController
     end
   end
 
-  def create
+  def edit
+    byebug
+  end
 
+  def update
+    byebug
     # Redirect if no token is POSTed or the user doesn't have a Stripe account
     # unless params[:stripeToken] && current_user.uid
     #   redirect_to new_bank_account_path and return
     # end
+    @account = StripeAccount.find(params[:id])
+    account_params.each do |key, value|
+      if value.empty?
+        flash.now[:success] = "Please complete all fields."
+        redirect_to dashboards_stripe_account_path(@account, missing_field: 'Bank') and return
+      end
+    end
 
     begin
       # Retrieve the account object for this user
@@ -51,14 +63,17 @@ class BankAccountsController < ApplicationController
             }
         })
       p resp
-      @stripe_account = current_user.stripe_accounts.first
+      # handle response
+      @stripe_account = StripeAccount.find(params[:id])
+
+      @stripe_account.update(account_params)
       # Create the bank account
       #account.external_account = params[:stripeToken]
-      #p account.save
+      #account.save
 
       # Success, send on to the dashboard
       flash[:success] = "Your bank account has been added!"
-      redirect_to new_stripe_document_path
+      redirect_to dashboards_stripe_account_path(@account, bank: 'updated')
 
       # Handle exceptions from Stripe
     rescue Stripe::StripeError => e

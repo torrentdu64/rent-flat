@@ -3,12 +3,22 @@ class StripeDocumentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def identity_document
-    @stripe_account = current_user.stripe_accounts.first
+    byebug
+    @account = StripeAccount.find(params[:id])
+
+    if @account.update(documents_params)
+      redirect_to dashboards_stripe_account_path(@account) and return
+    else
+      raise
+    end
+
   end
 
   def address_document
     @stripe_account = current_user.stripe_accounts.first
   end
+
+
 
 
 
@@ -25,7 +35,7 @@ class StripeDocumentsController < ApplicationController
   #     }
   #   )
   #
-  #   byebug
+
   #   # Return only the client secret to the frontend
   #   render json: { client_secret: verification_session.client_secret }.to_h
 
@@ -43,7 +53,7 @@ class StripeDocumentsController < ApplicationController
   )
 
   if params[:stripe_account][:identity_document].present?
-    byebug
+
     document_uploded =  Stripe::Account.update_person(
       current_user.uid,
       person_id,
@@ -54,7 +64,7 @@ class StripeDocumentsController < ApplicationController
   end
 
   if params[:stripe_account][:verify_home_address].present?
-    byebug
+
     address_document_uploded =  Stripe::Account.update_person(
       current_user.uid,
       person_id,
@@ -63,8 +73,8 @@ class StripeDocumentsController < ApplicationController
         verification: {additional_document: {front: upload_stripe_document.id }},
       })
   end
-
-  redirect_to dashboards_path
+  @account = StripeAccount.find(params[:account_id])
+  redirect_to dashboards_stripe_account_path(@account, @stripe_account) and return
 
   end
 

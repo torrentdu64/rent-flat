@@ -1,6 +1,7 @@
 <div class="panel panel-default topspace">
   <div class="panel-body">
-    <%= form_for @account do | f | %>
+    <%= form_for @account, url:  stripe_account_path(@account),  html: { method: "PUT" } do | f | %>
+      <% f.hidden_field :id, :as => :hidden, :input_html => { :value => "#{@account.id}" } %>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -9,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="business-row <%= 'hidden' unless @account.business_name.present? %>">
+      <div class="business-row ">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -28,7 +29,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 " >
           <div class="form-group">
             <%= f.label :first_name, "First Name" %>
             <%= f.text_field :first_name, class: "form-control input-lg", placeholder: "Jane" %>
@@ -90,19 +91,19 @@
         <div class="col-md-4">
           <div class="form-group">
             <%= f.label :dob_month, "DOB Month" %>
-            <%= f.select(:dob_month, options_for_select([["January", "1"],["February", "2"],["March", "3"],["April", "4"],["May", "5"],["June", "6"],["July", "7"],["August", "8"],["September", "9"],["October", "10"],["November", "11"],["December", "12"]], @account[:dob_month]), {}, { class: "form-control input-lg" }) %>
+            <%= f.select(:dob_month, options_for_select([["January", "1"],["February", "2"],["March", "3"],["April", "4"],["May", "5"],["June", "6"],["July", "7"],["August", "8"],["September", "9"],["October", "10"],["November", "11"],["December", "12"]], @stripe_account[:dob_month]), {}, { class: "form-control input-lg" }) %>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <%= f.label :dob_day, "DOB Day" %>
-            <%= f.select(:dob_day, options_for_select((1..31).each{|n| [n, n]}, @account[:dob_day]), {}, { class: "form-control input-lg" }) %>
+            <%= f.select(:dob_day, options_for_select((1..31).each{|n| [n, n]}, @stripe_account[:dob_day]), {}, { class: "form-control input-lg" }) %>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <%= f.label :dob_year, "DOB Year" %>
-            <%= f.select(:dob_year, options_for_select((1912..2016).each{|n| [n, n]}, @account[:dob_year]), {}, { class: "form-control input-lg" }) %>
+            <%= f.select(:dob_year, options_for_select((1912..2016).each{|n| [n, n]}, @stripe_account[:dob_year]), {}, { class: "form-control input-lg" }) %>
           </div>
         </div>
       </div>

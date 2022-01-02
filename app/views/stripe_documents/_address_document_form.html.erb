@@ -1,10 +1,12 @@
-<%= simple_form_for @account, url: stripe_documents_path(), html: { method: "post" }   do |f| %>
+<%= simple_form_for @account, url: upload_id_stripe_account_path, html: { method: "post" }   do |f| %>
   <%= f.input :verify_home_address, as: :file %>
   <%= f.submit :submit %>
 <% end %>
 
 <% if @account.verify_home_address.attached? %>
   <%= image_tag @account.verify_home_address , height: 300, width: 400 %>
+  <%= link_to "download", rails_blob_path(@account.verify_home_address, disposition: "attachment") %>
 <% else %>
   <p>No document</p>
 <% end %>
+

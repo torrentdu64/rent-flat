@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1 class="text-center">DashBoards</h1>
+      <h3>Profile Status:  <small><span class="badge badge-primary"><%= @account.charges_enabled %></span></small> </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</a>
+        <a class="nav-link" id="v-pills-cards-tab" data-toggle="pill" href="#v-pills-cards" role="tab" aria-controls="v-pills-cards" aria-selected="false">Cards</a>
+        <a class="nav-link" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="false">Account</a>
+        <a class="nav-link" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false">Product</a>
+        <a class="nav-link" id="v-pills-bank-tab" data-toggle="pill" href="#v-pills-bank" role="tab" aria-controls="v-pills-bank" aria-selected="false">Bank recipient</a>
+        <a class="nav-link" id="v-pills-proof-tab" data-toggle="pill" href="#v-pills-proof" role="tab" aria-controls="v-pills-proof" aria-selected="false">Proof</a>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <%= render  partial: "devise/registrations/form", locals: {resource: current_user } %>
+        </div>
+        <div class="tab-pane fade" id="v-pills-cards" role="tabpanel" aria-labelledby="v-pills-cards-tab">
+          create card page
+        </div>
+        <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
+          <%= render  "stripe_accounts/account_form"   %>
+        </div>
+        <div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-bank" role="tabpanel" aria-labelledby="v-pills-bank-tab">
+          <%= render "bank_accounts/bank_account_form" %>
+        </div>
+        <div class="tab-pane fade" id="v-pills-proof" role="tabpanel" aria-labelledby="v-pills-proof-tab">
+          <%= render "stripe_documents/identity_document_form"  %>
+          <%= render "stripe_documents/address_document_form" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
