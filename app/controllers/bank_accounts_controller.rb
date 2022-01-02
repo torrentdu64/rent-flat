@@ -2,7 +2,7 @@ class BankAccountsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    byebug
+    
     # Redirect if no stripe account exists yet
     unless current_user.uid
       redirect_to new_stripe_account_path and return
@@ -29,7 +29,7 @@ class BankAccountsController < ApplicationController
   end
 
   def update
-    byebug
+
     # Redirect if no token is POSTed or the user doesn't have a Stripe account
     # unless params[:stripeToken] && current_user.uid
     #   redirect_to new_bank_account_path and return
