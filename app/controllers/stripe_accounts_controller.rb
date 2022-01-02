@@ -10,7 +10,7 @@ class StripeAccountsController < ApplicationController
     @flats = current_user.flats.all
 
     @account = StripeAccount.find(params[:id])
-    @stripe_account =  Stripe::Account.retrieve(@account.acct_id)
+    @stripe_account =  Stripe::Account.retrieve(@account.acct_id) if  @stripe_account.acct_id
 
     # form for create method
     @flat = Flat.new
