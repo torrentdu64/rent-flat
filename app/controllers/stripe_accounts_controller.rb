@@ -60,6 +60,9 @@ class StripeAccountsController < ApplicationController
                 month: account_params[:dob_month],
                 year: account_params[:dob_year],
               },
+              business_profile: {
+                mcc: 5734
+              },
               email: current_user.email,
               phone: "+642041845759",
               address: {

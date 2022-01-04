@@ -80,7 +80,7 @@ class StripeDocumentsController < ApplicationController
 
   def admin_upload_document
       content_type = "application/json"
-
+      
       verification_session = Stripe::Identity::VerificationSession.create(
     {
           type: 'document',
@@ -92,7 +92,7 @@ class StripeDocumentsController < ApplicationController
 
 
       # Return only the client secret to the frontend
-      render json: { client_secret: verification_session.client_secret }.to_h
+      render json: { client_secret: verification_session.client_secret }.to_json
   end
 
   private

@@ -1,14 +1,15 @@
-<%= simple_form_for @account, url: upload_id_stripe_account_path, html: { method: "post" }   do |f| %>
-  <%= f.input :identity_document, as: :file %>
-  <%= f.submit :submit %>
-<% end %>
-<% if @account.identity_document.attached? %>
-  <%= image_tag @account.identity_document , height: 300, width: 400 %>
-  <%= link_to "download", rails_blob_path(@account.identity_document, disposition: "attachment") %>
-<% else %>
-  <p>No document</p>
-<% end %>
-<br>
+
+  <%= simple_form_for @account, url: upload_id_stripe_account_path, html: { method: "post" }   do |f| %>
+    <%= f.input :identity_document, as: :file %>
+    <%= f.submit :submit %>
+  <% end %>
+  <% if @account.identity_document.attached? %>
+    <%= image_tag @account.identity_document , height: 300, width: 400 %>
+    <%= link_to "download", rails_blob_path(@account.identity_document, disposition: "attachment") %>
+  <% else %>
+    <p>No document</p>
+  <% end %>
+  <br>
 <br>
 
 
@@ -31,27 +32,62 @@
 
     verifyButton.addEventListener('click', async (e) => {
         e.preventDefault();
-       const {client_secret} = await fetch('/stripe_documents/stripe_documents/admin_upload_document', {
-           credentials: 'same-origin',
-           method: 'POST' ,
-           headers: {
-               "X-CSRF-Token": csrfToken,
-               'X-Requested-With': 'XMLHttpRequest',
-               'Content-Type': 'application/json',
-               'Accept': 'application/json'
-           },
-           body: JSON.stringify(data)
+        fetch('/stripe_documents/stripe_documents/admin_upload_document', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                        "X-CSRF-Token": csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+        })
+            .then(function(response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function(session) {
+                // Show the verification modal.
+                console.log(session)
+                return stripe.verifyIdentity(session.client_secret);
+            })
+            .then(function(result) {
+                console.log("result",result )
+                // If `verifyIdentity` fails, you should display the error message
+                // using `error.message`.
+                if (result.error) {
+                    alert(result.error.message);
+                } else {
 
-       }).then( r => r.json() );
-
-        console.log("step 2" , client_secret)
-       const {error} = await stripe.verifyIdentity(client_secret)
-
-        if( error ){
-            alert(error.message)
-        }else{
-            console.log("check stripe profile")
-        }
+                    //window.location.href = 'submitted.html';
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+       // const {client_secret} = await fetch('/stripe_documents/stripe_documents/admin_upload_document', {
+       //     credentials: 'same-origin',
+       //     method: 'POST' ,
+       //     headers: {
+       //         "X-CSRF-Token": csrfToken,
+       //         'X-Requested-With': 'XMLHttpRequest',
+       //         'Content-Type': 'application/json',
+       //         'Accept': 'application/json'
+       //     },
+       //     body: JSON.stringify(data)
+       //
+       // }).then( r => r.json() );
+       //
+       //  console.log("step 2" , client_secret)
+       // const rep = await stripe.verifyIdentity(client_secret)
+       //  console.log(rep)
+       //
+       //  if( rep ){
+       //      console.log("problem")
+       //  }else{
+       //      console.log("check stripe profile")
+       //  }
 
     });
 
