@@ -92,9 +92,7 @@ class StripeDocumentsController < ApplicationController
       )
 
 
-      # client = Stripe::Identity::VerificationSession.retrieve(
-      #   verification_session.client_secret,
-      #   )
+
 
 
       # Return only the client secret to the frontend
