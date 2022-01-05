@@ -30,7 +30,7 @@
         user_id: <%= @account.user.id  %>
     }
 
-    verifyButton.addEventListener('click', async (e) => {
+    verifyButton.addEventListener('click',  (e) => {
         e.preventDefault();
         fetch('/stripe_documents/stripe_documents/admin_upload_document', {
             method: 'POST',
@@ -50,7 +50,8 @@
             .then(function(session) {
                 // Show the verification modal.
                 console.log(session)
-                return stripe.verifyIdentity(session.client_secret);
+                var stripeverification =  stripe.verifyIdentity(session.client_secret);
+                console.log( "identity return" ,stripeverification)
             })
             .then(function(result) {
                 console.log("result",result )

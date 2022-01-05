@@ -6,6 +6,7 @@ class StripeDocumentsController < ApplicationController
 
     @account = StripeAccount.find(params[:id])
 
+
     if @account.update(documents_params)
       redirect_to dashboards_stripe_account_path(@account) and return
     else
@@ -80,7 +81,7 @@ class StripeDocumentsController < ApplicationController
 
   def admin_upload_document
       content_type = "application/json"
-      
+
       verification_session = Stripe::Identity::VerificationSession.create(
     {
           type: 'document',
@@ -91,8 +92,13 @@ class StripeDocumentsController < ApplicationController
       )
 
 
+      # client = Stripe::Identity::VerificationSession.retrieve(
+      #   verification_session.client_secret,
+      #   )
+
+
       # Return only the client secret to the frontend
-      render json: { client_secret: verification_session.client_secret }.to_json
+      render json: {client_secret: verification_session.client_secret }.to_json
   end
 
   private

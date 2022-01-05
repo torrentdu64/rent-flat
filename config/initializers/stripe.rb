@@ -11,6 +11,7 @@ StripeEvent.configure do |events|
   events.subscribe 'checkout.session.completed', StripeCheckoutSessionService.new
   events.subscribe 'charge.refunded', StripeChargeRefunded.new
   events.subscribe 'product.created', StripeProductCreated.new
+  events.subscribe 'identity.verification_session.requires_input', StripeIdentityVerificationSessionRequiresInput.new
   # case events.type
   #   when 'account.updated'
   #       account = events.data.object
